@@ -1,3 +1,4 @@
+import {useNavigation} from '@react-navigation/native';
 import React from 'react';
 import {
   Image,
@@ -5,16 +6,24 @@ import {
   StyleSheet,
   Text,
   TextStyle,
+  TouchableOpacity,
   View,
   ViewStyle,
 } from 'react-native';
+import {ScreenNames} from '../enums';
 
 type BookItemProps = {};
 
 export const BookItem: React.FC<BookItemProps> = props => {
   const {} = props;
+  const navigation = useNavigation<any>();
+
   return (
-    <View style={styles.container}>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() => {
+        navigation.navigate(ScreenNames.DetailScreen);
+      }}>
       <Image
         source={require('../assets/images/image-placeholder.png')}
         style={styles.image}
@@ -25,7 +34,7 @@ export const BookItem: React.FC<BookItemProps> = props => {
         <Text style={styles.discount}>10%</Text>
         <Text style={styles.price}>57,600 원</Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
