@@ -46,8 +46,7 @@ export const DetailScreen: React.FC = () => {
       <View style={styles.card}>
         <View style={styles.cardHeader}>
           <Image
-            source={{uri: params.data.coverImage}}
-            defaultSource={require('../assets/images/image-1.png')}
+            source={require('../assets/images/image-1.png')}
             style={styles.cardImage}
           />
           <Text style={styles.cardTitle}>안녕 나 응애 </Text>
