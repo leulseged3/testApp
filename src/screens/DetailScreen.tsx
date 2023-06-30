@@ -1,4 +1,5 @@
-import React from 'react';
+import {useIsFocused, useNavigation, useRoute} from '@react-navigation/native';
+import React, {useEffect} from 'react';
 import {
   Image,
   ImageStyle,
@@ -12,30 +13,31 @@ import {
 import Icon from 'react-native-vector-icons/Ionicons';
 
 export const DetailScreen: React.FC = () => {
+  const {params} = useRoute<any>();
+  const isFocused = useIsFocused();
+  const navigation = useNavigation();
+
+  useEffect(() => {
+    if (isFocused) {
+      navigation.setOptions({title: params.data.title});
+    }
+  }, [isFocused, navigation, params.data.title]);
+
   return (
     <ScrollView style={styles.container}>
       <Image
-        source={require('../assets/images/image-placeholder.png')}
+        source={{uri: params.data.coverImage}}
+        defaultSource={require('../assets/images/image-placeholder.png')}
         style={styles.image}
       />
       <View style={styles.content}>
-        <Text style={styles.title}>{'{Title of the  Book}'}</Text>
+        <Text style={styles.title}>{params.data.title}</Text>
 
-        <Text style={styles.detail}>
-          Description of the book...Lorem Ipsum is simply dummy text of the
-          printing and typesetting industry. Lorem Ipsum has been the industry's
-          standard dummy text ever since the 1500s, when an unknown printer took
-          a galley of type and scrambled it to make a type specimen book. It has
-          survived not only five centuries, but also the leap into electronic
-          typesetting, remaining essentially unchanged. It was popularised in
-          the 1960s with the release of Letraset sheets containing Lorem Ipsum
-          passages, and more recently with desktop publishing softwarelike Aldus
-          PageMaker including versions of Lorem Ipsum.
-        </Text>
+        <Text style={styles.detail}>{params.data.description}</Text>
 
         <View style={styles.priceWrapper}>
-          <Text style={styles.discount}>10%</Text>
-          <Text style={styles.price}>57,600 원</Text>
+          <Text style={styles.discount}>{params.data.discount}%</Text>
+          <Text style={styles.price}>{params.data.price} 원</Text>
         </View>
       </View>
 
@@ -44,7 +46,8 @@ export const DetailScreen: React.FC = () => {
       <View style={styles.card}>
         <View style={styles.cardHeader}>
           <Image
-            source={require('../assets/images/image-1.png')}
+            source={{uri: params.data.coverImage}}
+            defaultSource={require('../assets/images/image-1.png')}
             style={styles.cardImage}
           />
           <Text style={styles.cardTitle}>안녕 나 응애 </Text>
@@ -148,11 +151,13 @@ const styles = StyleSheet.create({
     color: '#FF003E',
     fontWeight: '700',
     fontSize: 14,
+    fontFamily: 'NotoSan',
   } as TextStyle,
   price: {
     color: '#080A0C',
     fontWeight: '700',
     fontSize: 16,
+    fontFamily: 'NotoSan',
   } as TextStyle,
   divider: {
     width: '100%',
@@ -175,14 +180,14 @@ const styles = StyleSheet.create({
     color: '#1D232B',
     fontWeight: '700',
     fontSize: 14,
-    // fontFamily:
+    fontFamily: 'NotoSan',
     marginLeft: 10,
   } as TextStyle,
   cardMutedText: {
     color: '#919EB6',
     fontWeight: '500',
     fontSize: 10,
-    // fontFamily:
+    fontFamily: 'NotoSan',
     marginLeft: 5,
     flex: 1,
   } as TextStyle,
@@ -193,7 +198,7 @@ const styles = StyleSheet.create({
     color: '#313B49',
     fontWeight: '400',
     fontSize: 12,
-    // fontFamily:
+    fontFamily: 'NotoSan',
     marginTop: 5,
   } as TextStyle,
   cardAction: {
@@ -210,7 +215,7 @@ const styles = StyleSheet.create({
     fontWeight: '400',
     fontSize: 10,
     marginLeft: 2,
-    // fontFamily:
+    fontFamily: 'NotoSan',
   } as TextStyle,
   commentBox: {
     flexDirection: 'row',
@@ -228,10 +233,12 @@ const styles = StyleSheet.create({
     fontSize: 12,
     marginLeft: 15,
     flex: 1,
+    fontFamily: 'NotoSan',
   } as TextStyle,
   commentButton: {
     color: '#AFB9CA',
     fontWeight: '500',
     fontSize: 12,
+    fontFamily: 'NotoSan',
   } as TextStyle,
 });

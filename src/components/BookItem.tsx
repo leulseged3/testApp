@@ -11,28 +11,30 @@ import {
   ViewStyle,
 } from 'react-native';
 import {ScreenNames} from '../enums';
+import {Book} from '../api/types';
 
-type BookItemProps = {};
+type BookItemProps = {data: Book};
 
 export const BookItem: React.FC<BookItemProps> = props => {
-  const {} = props;
+  const {data} = props;
   const navigation = useNavigation<any>();
 
   return (
     <TouchableOpacity
       style={styles.container}
       onPress={() => {
-        navigation.navigate(ScreenNames.DetailScreen);
+        navigation.navigate(ScreenNames.DetailScreen, {data});
       }}>
       <Image
-        source={require('../assets/images/image-placeholder.png')}
+        source={{uri: data.coverImage}}
+        defaultSource={require('../assets/images/image-placeholder.png')}
         style={styles.image}
       />
-      <Text style={styles.title}>레이블라우스</Text>
+      <Text style={styles.title}>{data.title}</Text>
 
       <View style={styles.priceWrapper}>
-        <Text style={styles.discount}>10%</Text>
-        <Text style={styles.price}>57,600 원</Text>
+        <Text style={styles.discount}>{data.discount}%</Text>
+        <Text style={styles.price}>{data.price} 원</Text>
       </View>
     </TouchableOpacity>
   );
@@ -40,8 +42,9 @@ export const BookItem: React.FC<BookItemProps> = props => {
 
 const styles = StyleSheet.create({
   container: {
-    width: '50%',
+    width: '49%',
     backgroundColor: '#FFFFFF',
+    justifyContent: 'space-between',
   } as ViewStyle,
   image: {
     width: '100%',
@@ -66,10 +69,12 @@ const styles = StyleSheet.create({
     color: '#FF003E',
     fontWeight: '700',
     fontSize: 14,
+    fontFamily: 'NotoSan',
   } as TextStyle,
   price: {
     color: '#080A0C',
     fontWeight: '700',
     fontSize: 16,
+    fontFamily: 'NotoSan',
   } as TextStyle,
 });

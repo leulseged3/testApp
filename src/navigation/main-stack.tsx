@@ -2,7 +2,6 @@ import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {ScreenNames} from '../enums';
 import {DetailScreen, HomeScreen} from '../screens';
-const Arrow = require('../assets/icons/arrow.png');
 
 const Stack = createNativeStackNavigator();
 
@@ -12,7 +11,6 @@ export const MainStack = () => (
       headerShadowVisible: false,
       statusBarColor: '#FFFFFF',
       statusBarStyle: 'dark',
-      headerBackImageSource: Arrow,
     }}>
     <Stack.Screen
       name={ScreenNames.HomeScreen}
